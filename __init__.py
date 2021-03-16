@@ -94,9 +94,15 @@ class DialogOperator(bpy.types.Operator):
         ###############################################
         # MAIN
         ###############################################
-        #removeAllObjectsInScene()
-        bpy.ops.object.select_all(action='SELECT')
-        bpy.ops.object.delete(use_global=False)
+        # Elimino solo los ladrillos anteriores:
+        objects = bpy.context.scene.objects
+        if objects:
+            for ob in  objects:
+                if ob.name.startswith('WC_ladrillo_'):
+                    ob.select_set(True)
+                    bpy.context.view_layer.objects.active = ob
+                    bpy.ops.object.delete(use_global=False)
+
 
         # pongo blender en metros:
         bpy.context.scene.unit_settings.system = 'METRIC'
@@ -143,7 +149,7 @@ class DialogOperator(bpy.types.Operator):
                     nr = 0
 
                 if i%2 == 0: # para los pares:
-                    brick.create("ladrillo_fila_"+str(i), \
+                    brick.create("WC_ladrillo_"+str(i), \
                     ladrillo_ancho, \
                     ladrillo_profundo, \
                     ladrillo_alto, \
@@ -155,7 +161,7 @@ class DialogOperator(bpy.types.Operator):
                     # creando los medios ladrillos para el final o a la derecha:
                     if boundary: # si hay que hacer medios ladrillos para los bordes:                    
                         if j == muro_ancho-1: # si estamos en el ultimo creamos el medio ladrillo:
-                            brick.create("ladrillo_fila_"+str(i), \
+                            brick.create("WC_ladrillo_"+str(i), \
                             mitad_ladri_ancho-cemento, \
                             ladrillo_profundo, \
                             ladrillo_alto, \
@@ -168,7 +174,7 @@ class DialogOperator(bpy.types.Operator):
                 else: # para los impares los desplazo:
                     if boundary: # si hay que hacer medios ladrillos para los bordes:
                         if j == 0: # si estamos en los pares en el principio o a la izquierda creamos solo ese lado
-                            brick.create("ladrillo_fila_"+str(i), \
+                            brick.create("WC_ladrillo_"+str(i), \
                             mitad_ladri_ancho-cemento, \
                             ladrillo_profundo, \
                             ladrillo_alto, \
@@ -178,7 +184,7 @@ class DialogOperator(bpy.types.Operator):
                             )
                             bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                     # los impares enteros con desplazamiento:
-                    brick.create("ladrillo_fila_"+str(i), \
+                    brick.create("WC_ladrillo_"+str(i), \
                     ladrillo_ancho, \
                     ladrillo_profundo, \
                     ladrillo_alto, \
