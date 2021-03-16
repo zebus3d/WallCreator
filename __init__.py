@@ -22,7 +22,7 @@ bl_info = {
     "name": "Wall Creator",
     "description": "Wall Creator",
     "author": "Jorge Hernandez - Melenedez",
-    "version": (0, 3),
+    "version": (0, 2),
     "blender": (2, 93, 0),
     "location": "Left Toolbar > WallCreator",
     "warning": "",
@@ -71,7 +71,7 @@ class ReloadMyAdoon(bpy.types.Operator):
         
 class DialogOperator(bpy.types.Operator):
     bl_idname = "object.zebus_dialog"
-    bl_label = "Wall Bricks Creator v02"
+    bl_label = "Wall Bricks Creator v03"
     ###############################################
     # Defaults:
     ###############################################
@@ -147,9 +147,9 @@ class DialogOperator(bpy.types.Operator):
                     ladrillo_ancho, \
                     ladrillo_profundo, \
                     ladrillo_alto, \
-                    (j*(ladrillo_ancho+cemento)*2)+ladrillo_ancho, \
+                    (j*(ladrillo_ancho+cemento))+ladrillo_ancho, \
                     0+nr, \
-                    (i*(ladrillo_alto+cemento)*2)+ladrillo_alto \
+                    (i*(ladrillo_alto+cemento))+ladrillo_alto \
                     )
                     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                     # creando los medios ladrillos para el final o a la derecha:
@@ -159,9 +159,9 @@ class DialogOperator(bpy.types.Operator):
                             mitad_ladri_ancho-cemento, \
                             ladrillo_profundo, \
                             ladrillo_alto, \
-                            (j*(ladrillo_ancho+cemento)*2)+ladrillo_ancho*2+mitad_ladri_ancho+cemento, \
+                            (j*(ladrillo_ancho+cemento))+ladrillo_ancho+mitad_ladri_ancho+cemento+(mitad_ladri_ancho/2), \
                             0+nr, \
-                            ((i*(ladrillo_alto+cemento))*2)+ladrillo_alto \
+                            ((i*(ladrillo_alto+cemento)))+ladrillo_alto \
                             )
                             bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
@@ -172,9 +172,9 @@ class DialogOperator(bpy.types.Operator):
                             mitad_ladri_ancho-cemento, \
                             ladrillo_profundo, \
                             ladrillo_alto, \
-                            j+mitad_ladri_ancho-cemento, \
+                            j+mitad_ladri_ancho-cemento+(mitad_ladri_ancho/2), \
                             0+nr, \
-                            ((i*(ladrillo_alto+cemento))*2)+ladrillo_alto \
+                            ((i*(ladrillo_alto+cemento)))+ladrillo_alto \
                             )
                             bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                     # los impares enteros con desplazamiento:
@@ -182,9 +182,9 @@ class DialogOperator(bpy.types.Operator):
                     ladrillo_ancho, \
                     ladrillo_profundo, \
                     ladrillo_alto, \
-                    (j*(ladrillo_ancho+cemento)*2)+(ladrillo_ancho*2), \
+                    (j*(ladrillo_ancho+cemento))+(ladrillo_ancho+mitad_ladri_ancho), \
                     0+nr, \
-                    ((i*(ladrillo_alto+cemento))*2)+ladrillo_alto \
+                    ((i*(ladrillo_alto+cemento)))+ladrillo_alto \
                     )
                     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
