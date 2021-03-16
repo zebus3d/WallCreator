@@ -255,7 +255,7 @@ class DialogPanel(bpy.types.Panel):
         ###############################################
         # para tener un boton que recarga el addon
         ###############################################
-        col.operator("object.zebus_dialog2")
+        # col.operator("object.zebus_dialog2")
         ###############################################
 
 
