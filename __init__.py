@@ -22,7 +22,7 @@ bl_info = {
     "name": "Wall Creator",
     "description": "Wall Creator",
     "author": "Jorge Hernandez - Melenedez",
-    "version": (0, 2),
+    "version": (0, 3),
     "blender": (2, 93, 0),
     "location": "Left Toolbar > WallCreator",
     "warning": "",
