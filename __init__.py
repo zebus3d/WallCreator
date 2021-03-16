@@ -149,7 +149,7 @@ class DialogOperator(bpy.types.Operator):
                     ladrillo_alto, \
                     (j*(ladrillo_ancho+cemento))+ladrillo_ancho, \
                     0+nr, \
-                    (i*(ladrillo_alto+cemento))+ladrillo_alto \
+                    (i*(ladrillo_alto+cemento))+mitad_ladri_alto \
                     )
                     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                     # creando los medios ladrillos para el final o a la derecha:
@@ -159,9 +159,9 @@ class DialogOperator(bpy.types.Operator):
                             mitad_ladri_ancho-cemento, \
                             ladrillo_profundo, \
                             ladrillo_alto, \
-                            (j*(ladrillo_ancho+cemento))+ladrillo_ancho+mitad_ladri_ancho+cemento+(mitad_ladri_ancho/2), \
+                            (j*(ladrillo_ancho+cemento))+ladrillo_ancho+(mitad_ladri_ancho/2)+(cemento/2), \
                             0+nr, \
-                            ((i*(ladrillo_alto+cemento)))+ladrillo_alto \
+                            ((i*(ladrillo_alto+cemento))+ladrillo_alto+mitad_ladri_alto+cemento) \
                             )
                             bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
@@ -172,9 +172,9 @@ class DialogOperator(bpy.types.Operator):
                             mitad_ladri_ancho-cemento, \
                             ladrillo_profundo, \
                             ladrillo_alto, \
-                            j+mitad_ladri_ancho-cemento+(mitad_ladri_ancho/2), \
+                            j+(mitad_ladri_ancho/2)-(cemento/2), \
                             0+nr, \
-                            ((i*(ladrillo_alto+cemento)))+ladrillo_alto \
+                            ((i*(ladrillo_alto+cemento))-mitad_ladri_alto-cemento) \
                             )
                             bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                     # los impares enteros con desplazamiento:
@@ -182,9 +182,9 @@ class DialogOperator(bpy.types.Operator):
                     ladrillo_ancho, \
                     ladrillo_profundo, \
                     ladrillo_alto, \
-                    (j*(ladrillo_ancho+cemento))+(ladrillo_ancho+mitad_ladri_ancho), \
+                    (j*(ladrillo_ancho+cemento)+mitad_ladri_ancho), \
                     0+nr, \
-                    ((i*(ladrillo_alto+cemento)))+ladrillo_alto \
+                    ((i*(ladrillo_alto+cemento)))+mitad_ladri_alto \
                     )
                     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
