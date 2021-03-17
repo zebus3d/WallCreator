@@ -20,7 +20,7 @@ bl_info = {
     "name": "Wall Creator",
     "description": "Wall Creator",
     "author": "Jorge Hernandez - Melenedez",
-    "version": (0, 4),
+    "version": (0, 5),
     "blender": (2, 93, 0),
     "location": "Left Toolbar > WallCreator",
     "warning": "",
@@ -31,7 +31,7 @@ bl_info = {
 
 import bpy
 import random
-from .fabrickbrick import *
+from .fabrickbrick import FabrickBrick
 from bpy.utils import register_class, unregister_class
 from bpy.types import Panel, Operator, PropertyGroup
 from bpy.props import IntProperty, FloatProperty, BoolProperty
@@ -103,38 +103,38 @@ def UpdatedFunction(self, context):
                 nr = 0
 
             if i%2 == 0: # para los pares:
-                brick.create("ZWC_brick_"+str(i), \
-                             ladrillo_ancho, \
-                             ladrillo_profundo, \
-                             ladrillo_alto, \
-                             (j*(ladrillo_ancho+cemento))+ladrillo_ancho, \
-                             0+nr, \
-                             (i*(ladrillo_alto+cemento))+mitad_ladri_alto \
+                brick.create("ZWC_brick_"+str(i),
+                             ladrillo_ancho,
+                             ladrillo_profundo,
+                             ladrillo_alto,
+                             (j*(ladrillo_ancho+cemento))+ladrillo_ancho,
+                             0+nr,
+                             (i*(ladrillo_alto+cemento))+mitad_ladri_alto
                              )
                 bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                 # creando los medios ladrillos para el final o a la derecha:
                 if boundary: # si hay que hacer medios ladrillos para los bordes:
                     if j == muro_ancho-1: # si estamos en el ultimo creamos el medio ladrillo:
-                        brick.create("ZWC_brick_"+str(i), \
-                                     mitad_ladri_ancho-cemento, \
-                                     ladrillo_profundo, \
-                                     ladrillo_alto, \
-                                     (j*(ladrillo_ancho+cemento))+ladrillo_ancho+(mitad_ladri_ancho/2)+(cemento/2), \
-                                     0+nr, \
-                                     ((i*(ladrillo_alto+cemento))+ladrillo_alto+mitad_ladri_alto+cemento) \
+                        brick.create("ZWC_brick_"+str(i),
+                                     mitad_ladri_ancho-cemento,
+                                     ladrillo_profundo,
+                                     ladrillo_alto,
+                                     (j*(ladrillo_ancho+cemento))+ladrillo_ancho+(mitad_ladri_ancho/2)+(cemento/2),
+                                     0+nr,
+                                     ((i*(ladrillo_alto+cemento))+ladrillo_alto+mitad_ladri_alto+cemento)
                                      )
                         bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
             else: # para los impares los desplazo:
                 if boundary: # si hay que hacer medios ladrillos para los bordes:
                     if j == 0: # si estamos en los pares en el principio o a la izquierda creamos solo ese lado
-                        brick.create("ZWC_brick_"+str(i), \
-                                     mitad_ladri_ancho-cemento, \
-                                     ladrillo_profundo, \
-                                     ladrillo_alto, \
-                                     j+(mitad_ladri_ancho/2)-(cemento/2), \
-                                     0+nr, \
-                                     ((i*(ladrillo_alto+cemento))-mitad_ladri_alto-cemento) \
+                        brick.create("ZWC_brick_"+str(i),
+                                     mitad_ladri_ancho-cemento,
+                                     ladrillo_profundo,
+                                     ladrillo_alto,
+                                     j+(mitad_ladri_ancho/2)-(cemento/2),
+                                     0+nr,
+                                     ((i*(ladrillo_alto+cemento))-mitad_ladri_alto-cemento)
                                      )
                         bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                 # los impares enteros con desplazamiento:
@@ -168,7 +168,7 @@ class zwc_properties(PropertyGroup):
 
 class MAIN_OT_operator(Operator):
     bl_idname = "main.operator"
-    bl_label = "Wall Bricks Creator v04"
+    bl_label = "Wall Bricks Creator v05"
     bl_category = "WallCreator"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
