@@ -4,6 +4,7 @@ class FabrickBrick(object):
         bpy.ops.mesh.primitive_cube_add(size=1, align='WORLD', enter_editmode=False, location=(coordx, coordy, coordz))
         ob = bpy.context.object
         ob.name = name
+        ob.data.name = name
         ob.scale.x = sizex
         ob.scale.y = sizey
         ob.scale.z = sizez
