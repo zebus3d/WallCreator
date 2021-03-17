@@ -8,6 +8,7 @@ class FabrickBrick(object):
         ob.scale.x = sizex
         ob.scale.y = sizey
         ob.scale.z = sizez
+        bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
         # Bevel:
         if bpy.context.window_manager.zwc.bevel:
             bpy.ops.object.modifier_add(type='BEVEL')
