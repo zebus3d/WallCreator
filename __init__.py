@@ -38,6 +38,8 @@ from bpy.props import IntProperty, FloatProperty, BoolProperty
 
 
 def UpdatedFunction(self, context):
+    bpy.context.window_manager.zwc.first_time = False
+
     ###########################################################
     # Elimino solo los ladrillos anteriores y los orphan data #
     ###########################################################
@@ -161,6 +163,7 @@ class zwc_properties(PropertyGroup):
     randomdepth: BoolProperty(name="random_depth", default=True, update=UpdatedFunction)
     amountrand: FloatProperty(name="amountrand", min=1, max=15, default=1, update=UpdatedFunction)
     fill_boundaryes: BoolProperty(name="fill_boundaryes", default=True, update=UpdatedFunction)
+    first_time: BoolProperty(name="first_time", default=True)
 
 
 class MAIN_OT_operator(Operator):
@@ -190,29 +193,30 @@ class MAIN_PT_panel(Panel):
         flow = layout.grid_flow(align=True)
         col = flow.column()
 
-        col.label(text="Wall Settings:")
-        col.operator("main.operator", text='Start')
+        if bpy.context.window_manager.zwc.first_time:
+            col.operator("main.operator", text='Start')
+        else:
+            col.label(text="Wall Settings:")
+            rowsub0 = col.row()
+            rowsub0.prop(bpy.context.window_manager.zwc, "muro_alto", text='Height')
+            rowsub0.prop(bpy.context.window_manager.zwc, "muro_ancho", text='Width')
 
-        rowsub0 = col.row()
-        rowsub0.prop(bpy.context.window_manager.zwc, "muro_alto", text='Height')
-        rowsub0.prop(bpy.context.window_manager.zwc, "muro_ancho", text='Width')
+            col.label(text="Brick Settings:")
+            col.prop(bpy.context.window_manager.zwc, "ladrillo_alto", text='Height')
+            col.prop(bpy.context.window_manager.zwc, "ladrillo_ancho", text='Width')
+            col.prop(bpy.context.window_manager.zwc, "ladrillo_profundo", text='Depth')
+            col.prop(bpy.context.window_manager.zwc, "randomdepth", text='Random pos in Depth')
+            col.prop(bpy.context.window_manager.zwc, "amountrand", text='Amount RandDepth')
+            col.label(text="Cement Settings:")
+            col.prop(bpy.context.window_manager.zwc, "cementb", text='Enable Cement')
+            col.prop(bpy.context.window_manager.zwc, "cemento", text='Cement')
 
-        col.label(text="Brick Settings:")
-        col.prop(bpy.context.window_manager.zwc, "ladrillo_alto", text='Height')
-        col.prop(bpy.context.window_manager.zwc, "ladrillo_ancho", text='Width')
-        col.prop(bpy.context.window_manager.zwc, "ladrillo_profundo", text='Depth')
-        col.prop(bpy.context.window_manager.zwc, "randomdepth", text='Random pos in Depth')
-        col.prop(bpy.context.window_manager.zwc, "amountrand", text='Amount RandDepth')
-        col.label(text="Cement Settings:")
-        col.prop(bpy.context.window_manager.zwc, "cementb", text='Enable Cement')
-        col.prop(bpy.context.window_manager.zwc, "cemento", text='Cement')
+            col.label(text="Units Settings:")
+            # col = box.column()
+            col.prop(bpy.context.window_manager.zwc, "centimetros", text='centimeters' )
 
-        col.label(text="Units Settings:")
-        # col = box.column()
-        col.prop(bpy.context.window_manager.zwc, "centimetros", text='centimeters' )
-
-        col.label(text="Fill Settings:")
-        col.prop(bpy.context.window_manager.zwc, "fill_boundaryes", text='fill empty holes at the ends' )
+            col.label(text="Fill Settings:")
+            col.prop(bpy.context.window_manager.zwc, "fill_boundaryes", text='fill empty holes at the ends' )
 
 
 all_classes = [
