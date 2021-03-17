@@ -138,13 +138,13 @@ def UpdatedFunction(self, context):
                                      )
                         bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
                 # los impares enteros con desplazamiento:
-                brick.create("ZWC_brick_"+str(i), \
-                             ladrillo_ancho, \
-                             ladrillo_profundo, \
-                             ladrillo_alto, \
-                             (j*(ladrillo_ancho+cemento)+mitad_ladri_ancho), \
-                             0+nr, \
-                             ((i*(ladrillo_alto+cemento)))+mitad_ladri_alto \
+                brick.create("ZWC_brick_"+str(i),
+                             ladrillo_ancho,
+                             ladrillo_profundo,
+                             ladrillo_alto,
+                             (j*(ladrillo_ancho+cemento)+mitad_ladri_ancho),
+                             0+nr,
+                             ((i*(ladrillo_alto+cemento)))+mitad_ladri_alto
                              )
                 bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
