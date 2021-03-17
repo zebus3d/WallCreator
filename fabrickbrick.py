@@ -8,3 +8,11 @@ class FabrickBrick(object):
         ob.scale.x = sizex
         ob.scale.y = sizey
         ob.scale.z = sizez
+        # Bevel:
+        if bpy.context.window_manager.zwc.bevel:
+            bpy.ops.object.modifier_add(type='BEVEL')
+            if bpy.context.window_manager.zwc.centimetros:
+                bpy.context.object.modifiers["Bevel"].width = bpy.context.window_manager.zwc.bevel_amount
+            else:
+                bpy.context.object.modifiers["Bevel"].width = bpy.context.window_manager.zwc.bevel_amount*100
+
