@@ -165,7 +165,7 @@ class zwc_properties(PropertyGroup):
     fill_boundaryes: BoolProperty(name="fill_boundaryes", default=True, update=UpdatedFunction)
     first_time: BoolProperty(name="first_time", default=True)
     bevel: BoolProperty(name="bevel", default=False, update=UpdatedFunction)
-    bevel_amount: FloatProperty(name="bevel_amount", min=0.000, max=1.0, default=0.002, update=UpdatedFunction)
+    bevel_amount: FloatProperty(name="bevel_amount", min=0.000, max=1.0, default=0.002, precision=3, update=UpdatedFunction)
 
 
 class MAIN_OT_operator(Operator):
