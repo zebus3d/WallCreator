@@ -161,7 +161,7 @@ class zwc_properties(PropertyGroup):
     cemento: FloatProperty(name="cemento", min=0, max=5, default=1.6, update=UpdatedFunction)
     centimetros: BoolProperty(name="centimetros", default=True, update=UpdatedFunction)
     randomdepth: BoolProperty(name="random_depth", default=True, update=UpdatedFunction)
-    amountrand: FloatProperty(name="amountrand", min=1, max=15, default=1, update=UpdatedFunction)
+    amountrand: FloatProperty(name="amountrand", min=0, max=15, default=1, update=UpdatedFunction)
     fill_boundaryes: BoolProperty(name="fill_boundaryes", default=True, update=UpdatedFunction)
     first_time: BoolProperty(name="first_time", default=True)
     bevel: BoolProperty(name="bevel", default=False, update=UpdatedFunction)
