@@ -90,6 +90,8 @@ def UpdatedFunction(self, context):
     brick = FabrickBrick()
     mitad_ladri_ancho = (ladrillo_ancho/2)
     mitad_ladri_alto = (ladrillo_alto/2)
+    # J es X
+    # I es Y
     for i in range(muro_alto):
         for j in range(muro_ancho):
 
@@ -111,11 +113,11 @@ def UpdatedFunction(self, context):
                              0+nr,
                              (i*(ladrillo_alto+cemento))+mitad_ladri_alto
                              )
-                bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+
                 # creando los medios ladrillos para el final o a la derecha:
                 if boundary: # si hay que hacer medios ladrillos para los bordes:
-                    if j == muro_ancho-1: # si estamos en el ultimo creamos el medio ladrillo:
-                        brick.create("ZWC_brick_boundary_"+str(i),
+                    if j == muro_ancho-1 and i < muro_alto-1: # si estamos en el ultimo creamos el medio ladrillo:
+                        brick.create("ZWC_brick_right_boundary_"+str(i),
                                      mitad_ladri_ancho-cemento,
                                      ladrillo_profundo,
                                      ladrillo_alto,
@@ -123,12 +125,13 @@ def UpdatedFunction(self, context):
                                      0+nr,
                                      ((i*(ladrillo_alto+cemento))+ladrillo_alto+mitad_ladri_alto+cemento)
                                      )
-                        bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
             else: # para los impares los desplazo:
                 if boundary: # si hay que hacer medios ladrillos para los bordes:
+                    # print("i ", i)
+                    # print("j ", j)
                     if j == 0: # si estamos en los pares en el principio o a la izquierda creamos solo ese lado
-                        brick.create("ZWC_brick_boundary_"+str(i),
+                        brick.create("ZWC_brick_left_boundary_"+str(i),
                                      mitad_ladri_ancho-cemento,
                                      ladrillo_profundo,
                                      ladrillo_alto,
@@ -136,7 +139,17 @@ def UpdatedFunction(self, context):
                                      0+nr,
                                      ((i*(ladrillo_alto+cemento))-mitad_ladri_alto-cemento)
                                      )
-                        bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+                    # me faltaba con la altura total en numeor impar me faltaba el ladrillo del boudary izquierdo de arrib del todo
+                    # por eso he creado esta otra regla extra:
+                    if i+2 == muro_alto and j == 0:
+                        brick.create("ZWC_brick_left_boundary_"+str(i),
+                                     mitad_ladri_ancho-cemento,
+                                     ladrillo_profundo,
+                                     ladrillo_alto,
+                                     j+(mitad_ladri_ancho/2)-(cemento/2),
+                                     0+nr,
+                                     ((i*(ladrillo_alto+cemento))-mitad_ladri_alto+cemento+(ladrillo_alto*2))
+                                     )
                 # los impares enteros con desplazamiento:
                 brick.create("ZWC_brick_row_"+str(i)+"_col_"+str(j),
                              ladrillo_ancho,
@@ -146,7 +159,6 @@ def UpdatedFunction(self, context):
                              0+nr,
                              ((i*(ladrillo_alto+cemento)))+mitad_ladri_alto
                              )
-                bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
 
     bpy.ops.object.select_all(action='DESELECT')
 
@@ -160,7 +172,7 @@ class zwc_properties(PropertyGroup):
     cementb: BoolProperty(name="cementb", default=False, update=UpdatedFunction)
     cemento: FloatProperty(name="cemento", min=0, max=5, default=1.6, update=UpdatedFunction)
     centimetros: BoolProperty(name="centimetros", default=True, update=UpdatedFunction)
-    randomdepth: BoolProperty(name="random_depth", default=True, update=UpdatedFunction)
+    randomdepth: BoolProperty(name="random_depth", default=False, update=UpdatedFunction)
     amountrand: FloatProperty(name="amountrand", min=0, max=15, default=1, update=UpdatedFunction)
     fill_boundaryes: BoolProperty(name="fill_boundaryes", default=True, update=UpdatedFunction)
     first_time: BoolProperty(name="first_time", default=True)
@@ -201,25 +213,19 @@ class MAIN_PT_panel(Panel):
             col.label(text="Wall Settings:")
             col.prop(bpy.context.window_manager.zwc, "muro_alto", text='Height')
             col.prop(bpy.context.window_manager.zwc, "muro_ancho", text='Width')
-
             col.label(text="Brick Settings:")
             col.prop(bpy.context.window_manager.zwc, "ladrillo_alto", text='Height')
             col.prop(bpy.context.window_manager.zwc, "ladrillo_ancho", text='Width')
             col.prop(bpy.context.window_manager.zwc, "ladrillo_profundo", text='Depth')
             col.prop(bpy.context.window_manager.zwc, "randomdepth", text='Random pos in Depth')
             col.prop(bpy.context.window_manager.zwc, "amountrand", text='Amount RandDepth')
-
             col.prop(bpy.context.window_manager.zwc, "bevel", text='Bevel')
             col.prop(bpy.context.window_manager.zwc, "bevel_amount", text='Bevel Amount')
-
             col.label(text="Cement Settings:")
             col.prop(bpy.context.window_manager.zwc, "cementb", text='Enable Cement')
             col.prop(bpy.context.window_manager.zwc, "cemento", text='Cement')
-
             col.label(text="Units Settings:")
-            # col = box.column()
             col.prop(bpy.context.window_manager.zwc, "centimetros", text='centimeters' )
-
             col.label(text="Fill Settings:")
             col.prop(bpy.context.window_manager.zwc, "fill_boundaryes", text='fill empty holes at the ends' )
 
