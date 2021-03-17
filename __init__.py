@@ -20,7 +20,7 @@ bl_info = {
     "name": "Wall Creator",
     "description": "Wall Creator",
     "author": "Jorge Hernandez - Melenedez",
-    "version": (0, 5),
+    "version": (0, 6),
     "blender": (2, 93, 0),
     "location": "Left Toolbar > WallCreator",
     "warning": "",
@@ -182,7 +182,7 @@ class zwc_properties(PropertyGroup):
 
 class MAIN_OT_operator(Operator):
     bl_idname = "main.operator"
-    bl_label = "Wall Bricks Creator v05"
+    bl_label = "Wall Bricks Creator v06"
     bl_category = "WallCreator"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -194,7 +194,7 @@ class MAIN_OT_operator(Operator):
 
 class MAIN_PT_panel(Panel):
     bl_idname = "main.panel"
-    bl_label = "Wall Bricks Creator v04"
+    bl_label = "Wall Bricks Creator v06"
     bl_category = "WallCreator"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
