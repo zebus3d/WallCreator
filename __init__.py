@@ -197,9 +197,8 @@ class MAIN_PT_panel(Panel):
             col.operator("main.operator", text='Start')
         else:
             col.label(text="Wall Settings:")
-            rowsub0 = col.row()
-            rowsub0.prop(bpy.context.window_manager.zwc, "muro_alto", text='Height')
-            rowsub0.prop(bpy.context.window_manager.zwc, "muro_ancho", text='Width')
+            col.prop(bpy.context.window_manager.zwc, "muro_alto", text='Height')
+            col.prop(bpy.context.window_manager.zwc, "muro_ancho", text='Width')
 
             col.label(text="Brick Settings:")
             col.prop(bpy.context.window_manager.zwc, "ladrillo_alto", text='Height')
